@@ -1,0 +1,11 @@
+/* Espacement entre les colonnes du tableau */
+.fr-table {
+  border-collapse: separate;
+  border-spacing: 12px;
+}
+
+/* Aligner le contenu des cellules en haut */
+.fr-table td,
+.fr-table th {
+  vertical-align: top;
+}

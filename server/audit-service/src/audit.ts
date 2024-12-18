@@ -4,7 +4,11 @@ import axe from "axe-core";
 export async function runAccessibilityAudit(
   url: string
 ): Promise<axe.AxeResults | null> {
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({
+    // executablePath: "/usr/bin/google-chrome-stable", // Chemin fourni par le buildpack
+    args: ["--no-sandbox" /* "--disable-setuid-sandbox"*/], // Options nécessaires
+    headless: true,
+  });
   const page = await browser.newPage();
 
   try {

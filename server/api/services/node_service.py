@@ -1,6 +1,6 @@
 import requests
 
-NODE_SERVICE_URL = "http://localhost:3000/audit"  # URL du service Node.js
+NODE_SERVICE_URL = "https://poc-access-cible-audit-service-667996187d9e.herokuapp.com/audit"  # "http://localhost:3000/audit"  # URL du service Node.js
 
 
 def run_audit(url: str):

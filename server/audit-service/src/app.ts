@@ -3,7 +3,7 @@ import { auditSchema } from "./validators";
 import { runAccessibilityAudit } from "./audit";
 
 const app = express();
-const PORT = 3000;
+const port = process.env.PORT || 3000; // Port fourni par Heroku, ou 3000 en local
 
 // Middleware pour valider l'URL avec Zod
 function validateAuditRequest(req: Request, res: Response, next: NextFunction) {
@@ -42,7 +42,9 @@ app.get(
 );
 
 // Lancer le serveur
-app.listen(PORT, () => {
-  console.log(`🚀 Serveur démarré sur http://localhost:${PORT}`);
-  console.log("Exemple : http://localhost:3000/audit?url=https://example.com");
+app.listen(port, () => {
+  console.log(`🚀 Serveur démarré sur http://localhost:${port}`);
+  console.log(
+    `Exemple : http://localhost:${port}/audit?url=https://example.com`
+  );
 });

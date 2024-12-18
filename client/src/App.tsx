@@ -29,7 +29,9 @@ const App: React.FC = () => {
 
   const fetchCache = async () => {
     try {
-      const response = await fetch("http://localhost:8000/cache");
+      const response = await fetch(
+        "https://poc-access-cible-backend-api-b6e522ab1eae.herokuapp.com/cache"
+      );
       const data = await response.json();
       setCache(data);
     } catch (error) {
@@ -40,7 +42,9 @@ const App: React.FC = () => {
   const handleClearCache = async (urlToDelete: string) => {
     try {
       await fetch(
-        `http://localhost:8000/cache?url=${encodeURIComponent(urlToDelete)}`,
+        `https://poc-access-cible-backend-api-b6e522ab1eae.herokuapp.com/cache?url=${encodeURIComponent(
+          urlToDelete
+        )}`,
         {
           method: "DELETE",
         }
@@ -59,7 +63,9 @@ const App: React.FC = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:8000/audit?url=${encodeURIComponent(url)}`
+        `https://poc-access-cible-backend-api-b6e522ab1eae.herokuapp.com/audit?url=${encodeURIComponent(
+          url
+        )}`
       );
       const data = await response.json();
       setViolations(data.violations || []);
@@ -85,6 +91,7 @@ const App: React.FC = () => {
         id="fr-header-simple-header-with-service-title-and-tagline"
         serviceTagline="Proposition de POC"
         serviceTitle="Acces Cible"
+        brandTop=""
       />
 
       <h1 className="fr-h1" style={{ marginTop: 50 }}>

@@ -1,14 +1,14 @@
 import requests
 import json
 
-# Configuration Grist
+# Grist configuration
 API_KEY = "960b18cd8d432a4cef0595573b28fec0bb9e0a98"
 DOCUMENT_ID = "iYqnBr26oD4efFJpw2j6Zc"
+TABLE_NAME = "Analyses"
 BASE_URL = f"https://docs.getgrist.com/api/docs/{DOCUMENT_ID}/tables"
 
 
 def send_results_to_grist(results):
-    table_name = "Analyses"
     records = [
         {
             "fields": {
@@ -24,7 +24,7 @@ def send_results_to_grist(results):
     headers = {"Authorization": f"Bearer {API_KEY}"}
     try:
         response = requests.post(
-            f"{BASE_URL}/{table_name}/records",
+            f"{BASE_URL}/{TABLE_NAME}/records",
             json={"records": records},
             headers=headers,
         )

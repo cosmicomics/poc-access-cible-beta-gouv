@@ -9,6 +9,6 @@ class AuditResult(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     url = Column(String, unique=True, index=True)
-    has_violations = Column(Boolean, default=False)  # Flag pour indiquer des violations
-    violations = Column(Text, nullable=True)  # Stocke uniquement les violations JSON
+    has_violations = Column(Boolean, default=False)
+    violations = Column(Text, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)

@@ -5,8 +5,7 @@ export async function runAccessibilityAudit(
   url: string
 ): Promise<axe.AxeResults | null> {
   const browser = await puppeteer.launch({
-    // executablePath: "/usr/bin/google-chrome-stable", // Chemin fourni par le buildpack
-    args: ["--no-sandbox" /* "--disable-setuid-sandbox"*/], // Options nécessaires
+    args: ["--no-sandbox"],
     headless: true,
   });
   const page = await browser.newPage();
@@ -15,12 +14,12 @@ export async function runAccessibilityAudit(
     console.log(`🔍 Audit en cours pour : ${url}`);
     await page.goto(url, { waitUntil: "networkidle2" });
 
-    // Injecte axe-core dans la page
+    // Inject axe-core in the page
     await page.addScriptTag({
       content: (await fetchAxeCore()).toString(),
     });
 
-    // Exécute axe-core sur la page
+    // Run axe-core in the page
     const results = await page.evaluate(async () => {
       return await (window as any).axe.run();
     });
@@ -35,7 +34,7 @@ export async function runAccessibilityAudit(
   }
 }
 
-// Fonction pour récupérer le contenu source d'axe-core
+// Retrieve the content source of axe-core
 async function fetchAxeCore(): Promise<string> {
   return new Promise((resolve) => {
     resolve(require("axe-core").source);

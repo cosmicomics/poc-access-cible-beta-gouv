@@ -3,16 +3,16 @@ import { auditSchema } from "./validators";
 import { runAccessibilityAudit } from "./audit";
 
 const app = express();
-const port = process.env.PORT || 3000; // Port fourni par Heroku, ou 3000 en local
+const port = process.env.PORT || 3000;
 
-// Middleware pour valider l'URL avec Zod
+// Middleware to validate the URL with Zod
 function validateAuditRequest(req: Request, res: Response, next: NextFunction) {
   try {
-    // Valide la requête avec le schéma Zod
+    // Validate request with Zod
     auditSchema.parse(req.query);
     next();
   } catch (error) {
-    // Gestion des erreurs de validation
+    // Handle validation errors
     if (error instanceof Error) {
       return res.status(400).json({ error: error.message });
     }
@@ -20,13 +20,13 @@ function validateAuditRequest(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-// Route principale
+// Main route
 app.get(
   "/audit",
   validateAuditRequest,
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { url } = req.query as { url: string }; // Type sécurisé après validation
+      const { url } = req.query as { url: string };
 
       const results = await runAccessibilityAudit(url);
 
@@ -41,7 +41,7 @@ app.get(
   }
 );
 
-// Lancer le serveur
+// Run the server
 app.listen(port, () => {
   console.log(`🚀 Serveur démarré sur http://localhost:${port}`);
   console.log(

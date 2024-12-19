@@ -29,9 +29,7 @@ const App: React.FC = () => {
 
   const fetchCache = async () => {
     try {
-      const response = await fetch(
-        "https://poc-access-cible-backend-api-b6e522ab1eae.herokuapp.com/cache"
-      );
+      const response = await fetch("http://localhost:8000/cache");
       const data = await response.json();
       setCache(data);
     } catch (error) {
@@ -42,9 +40,7 @@ const App: React.FC = () => {
   const handleClearCache = async (urlToDelete: string) => {
     try {
       await fetch(
-        `https://poc-access-cible-backend-api-b6e522ab1eae.herokuapp.com/cache?url=${encodeURIComponent(
-          urlToDelete
-        )}`,
+        `http://localhost:8000/cache?url=${encodeURIComponent(urlToDelete)}`,
         {
           method: "DELETE",
         }
@@ -63,15 +59,13 @@ const App: React.FC = () => {
 
     try {
       const response = await fetch(
-        `https://poc-access-cible-backend-api-b6e522ab1eae.herokuapp.com/audit?url=${encodeURIComponent(
-          url
-        )}`
+        `http://localhost:8000/audit?url=${encodeURIComponent(url)}`
       );
       const data = await response.json();
       setViolations(data.violations || []);
       setHasViolations(data.has_violations);
 
-      // Rafraîchir la liste des sites en cache
+      // Refresh the list of cached websites
       fetchCache();
     } catch (error) {
       console.error("Error fetching audit results:", error);

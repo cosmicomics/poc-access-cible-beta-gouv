@@ -85,14 +85,14 @@ def audit_website(url: str, db: Session = Depends(get_db)):
     }
 
 
-# Route pour récupérer la liste des sites en cache
+# Get the list of all cached websites
 @app.get("/cache")
 def get_cached_sites(db: Session = Depends(get_db)):
     results = db.query(AuditResult).all()
     return [{"url": result.url, "date": result.created_at} for result in results]
 
 
-# Route pour supprimer un cache spécifique
+# Delete a specific website from cache
 @app.delete("/cache")
 def clear_cache(url: str, db: Session = Depends(get_db)):
     cache_entry = db.query(AuditResult).filter(AuditResult.url == url).first()
